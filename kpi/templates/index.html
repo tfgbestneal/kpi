@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="kpi-root-url" content="{% url 'kpi-root' %}">
     {% if csrf_token %}<meta name="csrf-token" content="{{csrf_token}}">{% endif %}
+    {% if cookie_domain %}<meta name="cookie-domain" content="{{cookie_domain}}">{% endif %}
 
     {% load staticfiles %}
     {% load cachebuster %}

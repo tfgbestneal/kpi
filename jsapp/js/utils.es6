@@ -124,6 +124,12 @@ export function currentLang() {
   return languageCode;
 }
 
+var cookieDomainMeta = document.head.querySelector('meta[name=cookie-domain]');
+if (cookieDomainMeta && !cookie.get('domain')) {
+  log('setting cookie domain to ', cookieDomainMeta.content);
+  cookie.set('domain', cookieDomainMeta.content);
+}
+
 export function setLang(langCode) {
   if (langCode === 'debug' || translations[langCode]) {
     cookie.set('django_language', langCode);
