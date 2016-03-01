@@ -31,7 +31,7 @@ var CollectionList = React.createClass({
     willTransitionTo: function(transition, params, idk, callback) {
       var headerBreadcrumb = [
         {
-          'label': t('Collections'),
+          'label': t('collections'),
           'href': '/collections',
         }
       ];

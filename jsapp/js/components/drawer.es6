@@ -9,6 +9,7 @@ import bem from '../bem';
 import {
   t,
   assign,
+  languagePrompt,
 } from '../utils';
 
 
@@ -76,6 +77,14 @@ var Drawer = React.createClass({
   logout () {
     actions.auth.logout();
   },
+  languagePrompt () {
+    languagePrompt().then(() => {
+      var _langCount = this.state._langCount || 0;
+      this.setState({
+        _langCount: _langCount + 1,
+      });
+    });
+  },
   render () {
     return (
           <bem.Drawer m={{
@@ -108,6 +117,7 @@ var Drawer = React.createClass({
                     <DrawerLink label={t('leave beta')} href={leaveBetaUrl} fa-icon='circle-o' />
                   :null}
                   <DrawerLink label={t('logout')} onClick={this.logout} fa-icon='sign-out' />
+                  <DrawerLink label={t('language')} onClick={this.languagePrompt} fa-icon='globe' />
                 </div>
               :
                 <DrawerLink label={t('login')} href='/api-auth/login/?next=/' fa-icon='sign-in' />

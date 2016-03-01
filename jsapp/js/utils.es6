@@ -1,3 +1,4 @@
+
 import moment from 'moment';
 import alertify from 'alertifyjs';
 import $ from 'jquery';
@@ -109,24 +110,67 @@ window.log = log;
 
 var __strings = [];
 
-var currentLang = "en_US";
 
-export function t(str) {
-  if (translations[currentLang][str]) {
-    return translations[currentLang][str];
+var cookie = require('cookie-cutter');
+const DEFAULT_LANGUAGE = 'en';
+
+export function currentLang() {
+  var languageCode = cookie.get('django_language');
+  if (languageCode === 'debug') {
+    return languageCode;
+  } else if (!languageCode || !translations[languageCode]) {
+    return DEFAULT_LANGUAGE;
+  }
+  return languageCode;
+}
+
+export function setLang(langCode) {
+  if (langCode === 'debug' || translations[langCode]) {
+    cookie.set('django_language', langCode);
+  } else {
+    throw new Error(`language '${langCode}' not found in translations.json`);
+  }
+}
+
+export function languagePrompt () {
+  var langPromptStr = [
+    'language code?',
+    `current:${currentLang()}`,
+    `available:${Object.keys(translations).join(',')}`,
+  ].join(' ');
+
+  return new Promise(function(success, fail){
+    customPromptAsync(langPromptStr).then(function(lang){
+      setLang(lang);
+      success(lang);
+    }).catch(function(){
+      fail();
+    });
+  });
+};
+
+
+export function t_(str) {
+  // returns the translated string with some extra context
+  var _cl = currentLang();
+  if (_cl === 'debug') {
+    var rx = Math.floor(Math.random() * 2);
+    var wEiRdCaPs = Array.prototype.slice.call(str).map(function(x, n){
+      return x[n % 2 === rx ? 'toUpperCase' : 'toLowerCase']();
+    }).join('');
+    return ['«' + wEiRdCaPs + '»', {lang: 'debug', debug: true}]
+  }
+  if (translations[_cl][str]) {
+    return [translations[_cl][str], {lang: _cl}];
   }
   if (__strings.indexOf(str) === -1) {
     __strings.push(str);
   }
-  return str;
+  return [str, {raw: true}];
 };
 
-export function changeLang(langCode) {
-  if (langCode in translations) {
-    currentLang = langCode;
-  } else {
-    throw new Error(`language '${langCode}' not found in translations.json`);
-  }
+export function t(str) {
+  return t_(str)[0];
 }
 
 log.t = function () {

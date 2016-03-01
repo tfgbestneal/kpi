@@ -1,5 +1,5 @@
 {
-  "en_US": {
+  "en": {
     "forms": "Forms",
     "library": "Library",
     "collections": "Collections",
@@ -11,6 +11,21 @@
     "edit-survey": "Edit",
     "edit-question": "Edit",
     "edit-block": "Edit",
+    "you have unsaved changes": "You have unsaved changes",
+    "logout": "Logout"
+  },
+  "fr": {
+    "forms": "Formulaires",
+    "library": "Bibliothèque",
+    "collections": "Collections",
+    "projects": "Projets",
+    "settings": "Settings",
+    "view-survey": "Enquête",
+    "view-block": "Block",
+    "view-question": "Question",
+    "edit-survey": "Modifier",
+    "edit-question": "Modifier",
+    "edit-block": "Modifier",
     "you have unsaved changes": "You have unsaved changes",
     "logout": "Logout"
   }

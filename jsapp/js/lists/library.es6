@@ -36,7 +36,7 @@ var LibrarySearchableList = React.createClass({
     willTransitionTo: function(transition, params, idk, callback) {
 
       var headerBreadcrumb = [
-        {'label': t('Library'), 'href': '', }
+        {'label': t('library'), 'to': 'library'}
       ];
       stores.pageState.setHeaderBreadcrumb(headerBreadcrumb);
 

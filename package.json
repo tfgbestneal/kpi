@@ -15,6 +15,7 @@
     "bower": "^1.4.1",
     "classnames": "^2.1.1",
     "coffeeify": "^1.1.0",
+    "cookie-cutter": "^0.1.1",
     "diff": "^1.4.0",
     "font-awesome": "^4.4.0",
     "grunt": "^0.4.5",
