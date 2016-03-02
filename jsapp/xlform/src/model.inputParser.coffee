@@ -77,6 +77,9 @@ module.exports = do ->
 
   inputParser.parseArr = parseArr
   inputParser.parse = (o)->
+    if !o
+      throw new Error('inputParser cannot parse empty input')
+
     # sorts groups and repeats into groups and repeats (recreates the structure)
     if o.survey
       o.survey = parseArr('survey', o.survey)
