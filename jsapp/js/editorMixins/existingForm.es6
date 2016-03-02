@@ -19,6 +19,9 @@ export default {
   componentDidMount () {
     let uid = this.props.params.assetid;
     stores.allAssets.whenLoaded(uid, (asset) => {
+      if (!asset || !asset.content) {
+        throw new Error(`cannot load asset for ${uid} with no content`);
+      }
       var survey = dkobo_xlform.model.Survey.loadDict(asset.content);
       this.launchAppForSurvey(survey, {
         // alternatively, we could pass asset. But for now it would be nice to keep
