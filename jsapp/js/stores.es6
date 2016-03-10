@@ -362,6 +362,7 @@ var allAssetsStore = Reflux.createStore({
   },
   whenLoaded (uid, cb) {
     if (this.byUid[uid] && this.byUid[uid].content) {
+      log('this.byUid[uid].content', this.byUid[uid], this.byUid[uid].content);
       cb.call(this, this.byUid[uid]);
     } else {
       if (!this._waitingOn[uid]) {
