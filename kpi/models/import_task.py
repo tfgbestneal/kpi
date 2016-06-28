@@ -4,6 +4,7 @@ import re
 import logging
 from collections import defaultdict
 from django.db import models
+from django.conf import settings
 from django.core.urlresolvers import get_script_prefix, resolve
 from django.utils.six.moves.urllib import parse as urlparse
 from jsonfield import JSONField
@@ -19,6 +20,8 @@ from rest_framework import exceptions
 def _resolve_url_to_asset_or_collection(item_path):
     if item_path.startswith(('http', 'https')):
         item_path = urlparse.urlparse(item_path).path
+        if settings.KPI_PREFIX:
+            item_path = item_path.replace(settings.KPI_PREFIX, '')
     match = resolve(item_path)
     uid = match.kwargs.get('uid')
     if match.url_name == 'asset-detail':
@@ -73,7 +76,8 @@ class ImportTask(models.Model):
             dest_item = dest_kls = has_necessary_perm = False
 
             if 'destination' in self.data and self.data['destination']:
-                (dest_kls, dest_item) = _resolve_url_to_asset_or_collection(self.data.get('destination'))
+                _d = self.data.get('destination')
+                (dest_kls, dest_item) = _resolve_url_to_asset_or_collection(_d)
                 necessary_perm = 'change_%s' % dest_kls
                 if not dest_item.has_perm(self.user, necessary_perm):
                     raise exceptions.PermissionDenied('user cannot update %s' % kls)
