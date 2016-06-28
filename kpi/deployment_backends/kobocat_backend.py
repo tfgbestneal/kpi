@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import cStringIO
+import logging
 import re
 import requests
 import unicodecsv
@@ -182,12 +183,22 @@ class KobocatDeploymentBackend(BaseDeploymentBackend):
 
         return json_response
 
-
     @property
     def timestamp(self):
         try:
             return self.backend_response['date_modified']
         except KeyError:
+            return None
+
+    @property
+    def mongo_userform_id(self):
+        try:
+            backend_response = self.asset._deployment_data['backend_response']
+            id_string = backend_response['id_string']
+            users = backend_response['users']
+            owner = filter(lambda u: u['role'] == 'owner', users)[0]['user']
+            return '{}__{}'.format(owner, id_string)
+        except KeyError, e:
             return None
 
     def connect(self, identifier=None, active=False):
@@ -320,8 +331,14 @@ class KobocatDeploymentBackend(BaseDeploymentBackend):
             auth=(settings.ENKETO_API_TOKEN, ''),
             data=data
         )
+        if response.status_code != 200:
+            # Don't 500 the entire asset view if Enketo is unreachable
+            logging.error('Unable to contact Enketo ({})'.format(
+                response.status_code))
+            return {}
         links = response.json()
         for discard in ('enketo_id', 'code', 'preview_iframe_url'):
             try: del links[discard]
             except KeyError: pass
         return links
+
