@@ -166,6 +166,7 @@ bem.FormView__label = bem.FormView.__('label');
 bem.FormView__group = bem.FormView.__('group');
 bem.FormView__item = bem.FormView.__('item', '<span>');
 bem.FormView__link = bem.FormView.__('link', '<a>');
+bem.FormView__highlighted = bem.FormView.__('highlighted', '<h3>');
 bem.FormView__secondaryButtons = bem.FormView.__('secondaryButtons');
 bem.FormView__secondaryButton = bem.FormView.__('secondaryButton', '<button>');
 bem.FormView__reportButtons = bem.FormView.__('reportButtons');

@@ -39,6 +39,7 @@ import {
 
 import Reports from './components/reports';
 import FormData from './components/formData';
+import FormSummary from './components/formSummary';
 import {ChangePassword, AccountSettings} from './components/accountSettings';
 
 import {
@@ -1590,6 +1591,7 @@ var routes = (
         <Route name="form-reports" path="reports" handler={Reports} />
         <Route name="form-preview-enketo" path="preview" handler={FormEnketoPreview} />
         <Route name='form-edit' path="edit" handler={FormPage} />
+        <Route name='form-summary' path='summary' handler={FormSummary} />
         <Route name='form-data-report' path="data/report" handler={FormData} />
         <Route name='form-data-table' path="data/table" handler={FormData} />
         <Route name='form-data-downloads' path="data/downloads" handler={FormData} />

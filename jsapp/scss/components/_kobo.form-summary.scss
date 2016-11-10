@@ -1,0 +1,24 @@
+.form-view__cell {
+	&--submissions {
+		width:75%;
+	}
+	&--stats {
+		width:25%;
+	}
+	&--team {
+		width:50%;
+	}
+	&--actions {
+		width:50%;
+	}
+}
+
+.form-view__group--team-member {
+	width:19.9%;
+	float: left;
+	img {
+		border-radius:50%;
+		margin-bottom: 8px;
+		max-width: 100%;
+	}
+}

@@ -284,9 +284,14 @@ var MainHeader = React.createClass({
     return (
       <bem.FormView__tabbar>
         <bem.FormView__tabs>
-          <bem.FormView__tab className="is-edge" m='summary' >
-            {t('Summary')}
-          </bem.FormView__tab>
+          { this.state.asset.deployment__identifier != undefined && this.state.asset.has_deployment &&
+            <bem.FormView__tab 
+              className={this.state.activeRoute == '/forms/:assetid/summary' ? 'active' : ''} 
+              href={this.makeHref('form-summary', {assetid: this.state.assetid})}
+              m='summary' >
+              {t('Summary')}
+            </bem.FormView__tab>
+          }
           <bem.FormView__tab 
             m='form' 
             className={this.state.activeRoute == '/forms/:assetid' ? 'active' : ''} 
@@ -294,7 +299,7 @@ var MainHeader = React.createClass({
             data-id='Form'>
               {t('Form')}
           </bem.FormView__tab>
-          { this.state.asset.deployment__identifier != undefined && this.state.asset.has_deployment ?
+          { this.state.asset.deployment__identifier != undefined && this.state.asset.has_deployment &&
             <ui.MDLPopoverMenu  id="more-data-tab" 
                                 button_label={t('Data')}
                                 button_type='text' 
@@ -331,7 +336,7 @@ var MainHeader = React.createClass({
                   {t('Map')}
                 </bem.PopoverMenu__link>
             </ui.MDLPopoverMenu>
-          : null }
+          }
           {canUpdateSettings && 
             <bem.FormView__tab 
               m='settings' 
