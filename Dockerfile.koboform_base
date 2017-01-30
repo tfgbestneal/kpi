@@ -31,8 +31,7 @@ RUN bash /tmp/setup_6.x.bash && \
 # Install `pip` packages. #
 ###########################
 
-# FIXME: Temporarily install an older version of `pip` until `pip-tools` 1.7.
-RUN pip install --quiet --upgrade pip==8.1.1 && \
+RUN pip install --quiet --upgrade pip && \
     pip install --quiet pip-tools
 COPY ./requirements.txt /srv/tmp/base_requirements.txt
 RUN pip-sync /srv/tmp/base_requirements.txt 1>/dev/null && \
