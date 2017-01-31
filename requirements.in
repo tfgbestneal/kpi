@@ -39,6 +39,7 @@ django-loginas==0.2.3
 django_markitup
 django_mptt
 django_reversion
+django_simple_captcha
 django_taggit
 djangorestframework
 gunicorn
