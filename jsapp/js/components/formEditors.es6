@@ -344,10 +344,14 @@ export var ProjectDownloads = React.createClass({
       }
     }
   },
+  componentWillReceiveProps (nextProps) {
+    if (nextProps.asset.v !== this.props.asset.v) {
+      this.setState(assign({type: 'xls'}));
+    }
+  },
   render () {
     let translations = this.props.asset.content.translations;
     var docTitle = this.props.asset.name || t('Untitled');
-
     return (
       <DocumentTitle title={`${docTitle} | KoboToolbox`}>
       <bem.FormView>

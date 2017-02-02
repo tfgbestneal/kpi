@@ -292,6 +292,13 @@ var MainHeader = React.createClass({
       });
     }
   },
+  handleGoTo (evt) {
+    var params = this.context.router.getCurrentQuery();
+    var v = 'A';
+    if (params.v == 'A')
+      v = 'B';
+    this.transitionTo(evt.currentTarget.dataset.route, {assetid: this.state.assetid}, {v: v});
+  },
   renderFormViewHeader () {
     return (
       <bem.FormView__tabbar>
@@ -317,28 +324,33 @@ var MainHeader = React.createClass({
                   {t('Reports')}
                 </bem.PopoverMenu__link>
                 <bem.PopoverMenu__link m={'report'}
-                    href={this.makeHref('form-data-report', {assetid: this.state.assetid})}
+                    onClick={this.handleGoTo} 
+                    data-route='form-data-report'
                     className="is-edge">
                   <i className="k-icon-report" />
                   {t('Reports (legacy)')}
                 </bem.PopoverMenu__link>
                 <bem.PopoverMenu__link m={'table'}
-                    href={this.makeHref('form-data-table', {assetid: this.state.assetid})}>
+                    onClick={this.handleGoTo} 
+                    data-route='form-data-table'>
                   <i className="k-icon-results" />
                   {t('Table')}
                 </bem.PopoverMenu__link>
                 <bem.PopoverMenu__link m={'gallery'}
-                    href={this.makeHref('form-data-gallery', {assetid: this.state.assetid})}>
+                    onClick={this.handleGoTo} 
+                    data-route='form-data-gallery'>
                   <i className="k-icon-photo-gallery" />
                   {t('Gallery')}
                 </bem.PopoverMenu__link>
                 <bem.PopoverMenu__link m={'downloads'}
-                    href={this.makeHref('form-data-downloads', {assetid: this.state.assetid})}>
+                    onClick={this.handleGoTo} 
+                    data-route='form-data-downloads'>
                   <i className="k-icon-download-1" />
                   {t('Downloads')}
                 </bem.PopoverMenu__link>
                 <bem.PopoverMenu__link m={'map'}
-                    href={this.makeHref('form-data-map', {assetid: this.state.assetid})}>
+                    onClick={this.handleGoTo} 
+                    data-route='form-data-map'>
                   <i className="k-icon-map-view" />
                   {t('Map')}
                 </bem.PopoverMenu__link>
@@ -348,7 +360,8 @@ var MainHeader = React.createClass({
             <bem.FormView__tab 
               m='settings' 
               className={this.state.activeRoute == '/forms/:assetid/data/settings' ? 'active' : ''} 
-              href={this.makeHref('form-data-settings', {assetid: this.state.assetid})}>
+              onClick={this.handleGoTo} 
+              data-route='form-data-settings'>
                 {t('Settings')}
             </bem.FormView__tab>
           }

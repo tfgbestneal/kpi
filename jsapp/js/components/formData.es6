@@ -60,7 +60,9 @@ var FormData = React.createClass({
     if (this.state.deployment__identifier != undefined) {
       var deployment__identifier = this.state.deployment__identifier;
       var report__base = deployment__identifier.replace('/forms/', '/reports/');
-      var iframeUrl = '';   
+      var iframeUrl = '';
+      var q = this.context.router.getCurrentQuery();
+      this.state.v = q.v || '';
       switch(this.state.currentRoute.name) {
         case 'form-data-report':
           iframeUrl = report__base+'/digest.html';
@@ -80,6 +82,7 @@ var FormData = React.createClass({
           iframeUrl = deployment__identifier+'/form_settings';
           break;
       }
+      iframeUrl = iframeUrl + '?v=' + this.state.v;
     }
 
     var docTitle = this.state.name || t('Untitled');
