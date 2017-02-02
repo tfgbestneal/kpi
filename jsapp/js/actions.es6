@@ -351,6 +351,7 @@ actions.resources.updateAsset.listen(function(uid, values){
         resolve(asset);
       })
       .fail(function(...args){
+        notify(t('Error: form could not be saved'), 'error');
         reject(args)
       });
   })
